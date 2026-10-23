@@ -1,0 +1,222 @@
+/* ───────── Design tokens ───────── */
+:root {
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+
+  --container: 1120px;
+  --nav-h: 68px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 160ms;
+  --t-med: 260ms;
+}
+
+/* Light theme (default) */
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #faf8f5;
+  --bg-alt: #f3efe9;
+  --surface: #ffffff;
+  --surface-2: #f7f4ef;
+  --text: #1c1a22;
+  --text-muted: #5b5766;
+  --border: #e6e1d8;
+  --border-strong: #d3ccc0;
+  --accent: #6137e6;
+  --accent-hover: #4f27cf;
+  --accent-contrast: #ffffff;
+  --accent-soft: #eee9ff;
+  --accent-text: #5128d6;
+  --focus: #6137e6;
+  --shadow-sm: 0 1px 2px rgba(28, 26, 34, 0.05), 0 1px 1px rgba(28, 26, 34, 0.03);
+  --shadow-md: 0 10px 30px -12px rgba(60, 40, 140, 0.18), 0 2px 6px rgba(28, 26, 34, 0.05);
+  --shadow-lg: 0 24px 50px -20px rgba(60, 40, 140, 0.3);
+}
+
+/* Dark theme */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #16151a;
+  --bg-alt: #1b1a21;
+  --surface: #211f28;
+  --surface-2: #29262f;
+  --text: #f1eff6;
+  --text-muted: #aca8b8;
+  --border: #34313d;
+  --border-strong: #46424f;
+  --accent: #9b82ff;
+  --accent-hover: #b3a0ff;
+  --accent-contrast: #14121c;
+  --accent-soft: #2b2543;
+  --accent-text: #b8a6ff;
+  --focus: #b3a0ff;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 12px 30px -12px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 24px 50px -20px rgba(0, 0, 0, 0.7);
+}
+
+/* ───────── Reset & base ───────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 12px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--t-med) var(--ease), color var(--t-med) var(--ease);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* Keyboard focus */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--t-fast) var(--ease);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ───────── Reveal animation ───────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease) var(--reveal-delay, 0ms),
+    transform 600ms var(--ease) var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ───────── Reduced motion ───────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 32px;
+  }
+}
