@@ -21,7 +21,7 @@ export default function Hero() {
             {profile.headline}
           </h1>
           <p className="hero__name">
-            Hi, I&rsquo;m <strong>{profile.name}</strong>.
+            Hi, I&rsquo;m <strong>{profile.name}</strong>
           </p>
           <p className="hero__intro">{profile.intro}</p>
 
