@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { CodeXml, Menu, X } from 'lucide-react'
 import ThemeToggle from './ThemeToggle'
 import { navLinks, profile } from '../data/portfolio'
 
@@ -34,8 +34,12 @@ export default function Navbar({ active, theme, onToggleTheme }) {
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="container navbar__inner">
         <a href="#home" className="wordmark" onClick={close} aria-label={`${profile.name} — back to top`}>
-          <span className="wordmark__mark" aria-hidden="true">
-            {profile.wordmark.replace(/[^A-Za-z]/g, '').charAt(0) || 'P'}
+          <span
+            className="wordmark__mark"
+            aria-hidden="true"
+            style={{ background: 'transparent', color: 'var(--accent)' }}
+          >
+            <CodeXml size={30} strokeWidth={2.4} />
           </span>
           <span className="wordmark__text">{profile.wordmark}</span>
         </a>

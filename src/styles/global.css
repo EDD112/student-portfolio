@@ -17,7 +17,7 @@
   --space-8: 4.5rem;
   --space-9: 6.5rem;
 
-  --container: 1120px;
+  --container: 1160px;
   --nav-h: 68px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --t-fast: 160ms;
@@ -220,3 +220,4 @@ button {
     padding-inline: 32px;
   }
 }
+

@@ -1,6 +1,7 @@
 import { ArrowDown, Mail, MapPin, GraduationCap } from 'lucide-react'
 import { profile } from '../data/portfolio'
 
+
 export default function Hero() {
   const initials = profile.name
     .replace(/[^A-Za-z\s]/g, '')
@@ -17,7 +18,7 @@ export default function Hero() {
       <div className="container hero__grid">
         <div className="hero__copy">
           <p className="eyebrow">{profile.title}</p>
-          <h1 id="hero-title" className="hero__title">
+          <h1 id="hero-title" className="hero__title" style={{ fontSize: 'clamp(2.4rem, 5.4vw, 4.4rem)' }}>
             {profile.headline}
           </h1>
           <p className="hero__name">

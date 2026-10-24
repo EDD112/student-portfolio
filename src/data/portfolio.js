@@ -10,9 +10,9 @@ export const profile = {
   title: 'IT Student',
   school: 'Cebu Eastern College, Inc.',
   location: 'Cebu City, Philippines',
-  headline: 'Building web and mobile apps with Python, Django, and Flutter.',
+  headline: 'Turning ideas into working software',
   intro:
-    'I’m an IT student at Cebu Eastern College, Inc. Right now I’m studying how optical character recognition (OCR) works for our upcoming system project, while building my skills in Python, Django, PHP, and mobile development.',
+    'I’m an IT student at Cebu Eastern College who enjoys building web and mobile apps. I like learning new tools, working through problems step by step, and finishing projects that people can actually use.',
   email: 'argallonjr153@gmail.com',
   github: 'https://github.com/EDD112',
   linkedin: '',
@@ -21,14 +21,19 @@ export const profile = {
 }
 
 export const about = {
+  title: 'Growing as a developer, one project at a time.',
   paragraphs: [
-    'I’m an IT student at Cebu Eastern College, Inc. in Cebu City, Philippines.',
-    'I work with Python, Django, and PHP, and I build mobile apps using Flutter and the Android SDK.',
-    'Right now I’m studying how optical character recognition (OCR) works, which is the technology that lets software read text from images, for our upcoming system project.',
+    'I’m studying Information Technology with a focus on software development. What draws me in is watching a rough idea turn into something that runs, then making it better after every round of testing and feedback.',
+    'So far I’ve worked with Python, Django, PHP, and Flutter on web and mobile projects, with databases and networking basics behind them. I’m still early in my journey, so each project is a chance to learn something new and close a gap in what I know.',
+    'Right now I’m learning how optical character recognition (OCR) works for our thesis project, EduAssist AI, while also working with my teammates on planning and designing it. Working in a group has taught me that good software depends as much on clear communication as it does on code.',
   ],
-  interests: ['Learning programming'],
-  goals: ['Build a stable income through a career in IT',
-  'Finish my OCR system project'],
+  interests: ['Web applications', 'Networking', 'Database', 'Mobile Application', 'Frameworks', 'Software Development'],
+  goals: [
+    'Grow into a confident full-stack and mobile software developer',
+    'Finish and deliver our OCR-based thesis system, EduAssist AI',
+    'Go deeper into databases, networking, and secure coding',
+    'Earn an IT certification and land an entry-level developer role',
+  ],
 }
 
 // Only include skills you actually have. Icons are chosen by `icon` key
@@ -66,23 +71,30 @@ export const skills = [
 // status: 'completed' | 'in-progress' (be honest — do not mark unfinished work complete)
 export const projects = [
     {
-    title: 'Pinoy Games: Luksong Baka',
+    title: 'EduAssist AI: Essay Evaluation System',
     description:
-      'A browser version of the traditional Filipino "jump over the cow" game, with a username entry, instructions, a pause menu, a score and a leaderboard. Be warned: it has a lot of bugs, and it works best on desktop because the mobile layout is not responsive yet. We were still beginners when we made it.',
+       'A mobile app idea for college instructors at Cebu Eastern College that helps check student essays. The instructor enters the essay question and rubric, then captures or uploads photos of the essays. The app uses OCR to read the text and AI to suggest a score and draft feedback based on the instructor’s own criteria. The instructor always reviews and confirms the final result, which is saved as a record that can be downloaded as an image. This is our thesis project.',
     contribution:
-       'I built the game functions and logic, such as the controls, jumping, scoring and game flow. My teammates built the UI and the rest of the game.',
-    tech: ['HTML', 'CSS', 'JavaScript'],
-    status: 'completed',
-    image: '/images/luksong-baka.jpg',
-    imageAlt: 'The Luksong Baka game',
-    live: 'https://edd112.github.io/PINOY-GAMES-LUKSONG-BAKA/',
-    source: 'https://github.com/EDD112/PINOY-GAMES-LUKSONG-BAKA'},
+       'My team of five and I are still in the planning and design stage. So far we have worked on the research paper: defining the problem, objectives and scope, studying related research and similar software like Gradescope and Turnitin, and planning the features and how the system should work. We have not started full development yet.',
+    note: 'Planning stage only. There is no working version to demo yet.',
+    status: 'in-progress',
+    tech: ['OCR', 'AI-assisted grading', 'Mobile app', 'Django', 'Flutter', 'Android SDK'],
+    image: [
+    '/images/eduassistai.png',
+    '/images/eduassistai1.png',
+    '/images/eduassistai2.png',
+    '/images/eduassistai3.png',
+    ],
+    imageAlt: 'The EduAssistAi',
+    live: '',
+    source: ''},
   {
     title: 'StockManager: Inventory System',
     description:
-      'A web-based inventory system for tracking products, categories and stock batches, with expiry tracking and alerts for low stock, out-of-stock and expiring items. Built for small stores and food businesses that need to know what is running out or about to expire. Demo login for the dashboard: username "manager", password "manager@123".',
+      'A web-based inventory system for tracking products, categories and stock batches, with expiry tracking and alerts for low stock, out-of-stock and expiring items. Built for small stores and food businesses that need to know what is running out or about to expire.',
     contribution:
       'I built most of the system myself, including the Django backend, the inventory logic and the alerts. My teammates helped with the UI and went to the store to propose the system and gather information.',
+    note: 'Demo login for the dashboard: username "manager", password "manager@123".',
     tech: ['Python', 'Django', 'PostgreSQL', 'Bootstrap', 'Chart.js'],
     status: 'completed',
     image: [
@@ -97,6 +109,7 @@ export const projects = [
     title: 'CEC Anomaly: Horror Survival Game',
     description: 'A first-person horror survival game concept set inside Cebu Eastern College, where players must complete tasks, explore different floors, and free trapped spirits while avoiding a powerful demon. The game is planned to feature survival mechanics, hiding spots, interactive objects, and tools to stun enemies. The project is currently in progress, with me and my team still working on the game design, planning its mechanics, and organizing its core gameplay features before moving into full development.',
     contribution: 'I am working with my team during the design and planning process, contributing ideas for the game mechanics, gameplay flow, and overall player experience. We are still refining the concept and organizing the features that will be implemented in the next stages of development.',
+    note: 'Planning stage only. There is no working version to demo yet.',
     tech: ['Godot', 'GDScript'],
     status: 'in-progress',
     image: [

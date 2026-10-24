@@ -53,7 +53,14 @@ function ProjectCard({
   const expanded = isControlled ? expandedProp : localExpanded
   const toggle = () => (isControlled ? onToggle?.(index) : setLocalExpanded((v) => !v))
 
-  const status = statusMap[project.status] || statusMap.completed
+  // Optional: a card with no `status` simply shows no badge
+  const status = project.status ? statusMap[project.status] || statusMap.completed : null
+
+  // What the card has. Missing tech stack, demo or source parts are simply skipped.
+  const techList = project.tech ?? []
+  const detailsText = project.details ?? project.contribution
+  const detailsLabel = project.detailsLabel ?? 'My contribution'
+  const hasBottom = techList.length > 0 || Boolean(project.live || project.source)
 
   const articleRef = useRef(null)
   const regionRef = useRef(null)
@@ -78,8 +85,9 @@ function ProjectCard({
     const overflowing = fullDesc > clamp + 2
     const closedH = overflowing ? clamp : fullDesc
 
-    // Take out whatever "equal height" margin is currently applied, so we get the natural height
-    const appliedExtra = parseFloat(getComputedStyle(bottom).marginTop) || 0
+    // Take out whatever "equal height" space is currently applied, so we get the natural height
+    const cs = getComputedStyle(bottom)
+    const appliedExtra = parseFloat(hasBottom ? cs.marginTop : cs.height) || 0
     const openH = fill.getBoundingClientRect().height - appliedExtra
 
     // Everything in the card except the animated box (image, title, button, padding)
@@ -91,12 +99,12 @@ function ProjectCard({
         : { closedH, openH, overflowing },
     )
     onMeasure?.(index, chrome + openH)
-  }, [index, onMeasure])
+  }, [index, onMeasure, hasBottom])
 
   // Measure before the first paint, and again if the text changes
   useLayoutEffect(() => {
     measure()
-  }, [measure, project.description, project.contribution, project.note])
+  }, [measure, project.description, project.contribution, project.details, project.note])
 
   // Re-measure only when the card's WIDTH changes (text re-wraps) or fonts finish loading.
   // Height is ignored on purpose, because it changes every frame while animating.
@@ -139,7 +147,7 @@ function ProjectCard({
             <span>Screenshot placeholder</span>
           </div>
         )}
-        <span className={`status ${status.cls}`}>{status.label}</span>
+        {status && <span className={`status ${status.cls}`}>{status.label}</span>}
       </div>
 
       <div className="project-card__body" style={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}>
@@ -175,10 +183,12 @@ function ProjectCard({
                   transition: `visibility 0s linear ${expanded ? '0s' : `${MS}ms`}`,
                 }}
               >
-                <div className="project-card__contrib">
-                  <span className="project-card__label">My contribution</span>
-                  {project.contribution}
-                </div>
+                {detailsText && (
+                  <div className="project-card__contrib">
+                    <span className="project-card__label">{detailsLabel}</span>
+                    {detailsText}
+                  </div>
+                )}
 
                 {project.note && (
                   <p className="project-card__note" role="note">
@@ -189,6 +199,7 @@ function ProjectCard({
 
                 {/* Tech stack + buttons. `extra` pushes them to the bottom when this card
                     is shorter than an open neighbour in the same row. */}
+                {hasBottom && (
                 <div
                   ref={bottomRef}
                   style={{
@@ -200,13 +211,15 @@ function ProjectCard({
                     alignItems: 'flex-start',
                   }}
                 >
-                  <ul className="chips chips--small" aria-label="Technologies used">
-                    {project.tech.map((t, i) => (
-                      <li key={i} className="chip">
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
+                  {techList.length > 0 && (
+                    <ul className="chips chips--small" aria-label="Technologies used">
+                      {techList.map((t, i) => (
+                        <li key={i} className="chip">
+                          {t}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
                   {(project.live || project.source) && (
                     <div
@@ -247,7 +260,17 @@ function ProjectCard({
                     </div>
                   )}
                 </div>
+                )}
               </div>
+
+              {/* No tech/links: this spacer carries the equal-height extra instead */}
+              {!hasBottom && (
+                <div
+                  ref={bottomRef}
+                  aria-hidden="true"
+                  style={{ height: extra, transition: animate ? `height ${MS}ms ${EASE}` : 'none' }}
+                />
+              )}
             </div>
 
             {/* Soft fade on the 3rd line. It is an overlay, so only its opacity animates. */}

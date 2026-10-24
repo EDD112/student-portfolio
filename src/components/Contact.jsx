@@ -7,7 +7,7 @@ export default function Contact() {
   return (
     <section id="contact" className="section section--alt" aria-labelledby="contact-title">
       <div className="container">
-        <SectionHeading id="contact-title" number="04" eyebrow="Contact" title="Let’s talk" />
+        <SectionHeading id="contact-title" number="05" eyebrow="Contact" title="Let’s talk" />
 
         <Reveal className="contact__panel">
           <p className="contact__lead">
