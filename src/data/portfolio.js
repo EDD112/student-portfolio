@@ -5,31 +5,30 @@
 // ─────────────────────────────────────────────────────────────
 
 export const profile = {
-  name: '[YOUR FULL NAME]',
-  // Short name shown in the navbar wordmark
-  wordmark: '[YOUR NAME]',
-  title: '[IT STUDENT / ASPIRING WEB DEVELOPER]',
-  school: '[YOUR SCHOOL OR COURSE]', // set to '' to hide
-  location: '[YOUR LOCATION]', // set to '' to hide
-  headline: 'Learning to build thoughtful, accessible things for the web.',
+  name: 'Edwin L. Argallon Jr.',
+  wordmark: 'Edwin',
+  title: 'IT Student',
+  school: 'Cebu Eastern College, Inc.',
+  location: 'Cebu City, Philippines',
+  headline: 'Building web and mobile apps with Python, Django, and Flutter.',
   intro:
-    '[WRITE A SHORT INTRODUCTION ABOUT YOURSELF — two or three sentences about what you are studying and what you are curious about right now.]',
-  email: 'your.email@example.com',
-  github: '', // e.g. 'https://github.com/your-username'
-  linkedin: '', // e.g. 'https://www.linkedin.com/in/your-profile'
-  resume: '', // e.g. '/resume.pdf' — put the file in /public first
-  // Optional profile photo, e.g. '/images/profile.jpg'. Leave '' for the placeholder graphic.
-  photo: '',
+    'I’m an IT student at Cebu Eastern College, Inc. Right now I’m studying how optical character recognition (OCR) works for our upcoming system project, while building my skills in Python, Django, PHP, and mobile development.',
+  email: 'argallonjr153@gmail.com',
+  github: 'https://github.com/EDD112',
+  linkedin: '',
+  resume: '',
+  photo: '/images/profile.png',
 }
 
 export const about = {
   paragraphs: [
-    '[PARAGRAPH 1 — Who you are and what you are studying.]',
-    '[PARAGRAPH 2 — Your learning journey so far: how you got into IT and web development.]',
-    '[PARAGRAPH 3 — What you hope to do next: goals, the kind of work or team you are looking for.]',
+    'I’m an IT student at Cebu Eastern College, Inc. in Cebu City, Philippines.',
+    'I work with Python, Django, and PHP, and I build mobile apps using Flutter and the Android SDK.',
+    'Right now I’m studying how optical character recognition (OCR) works, which is the technology that lets software read text from images, for our upcoming system project.',
   ],
-  interests: ['[INTEREST 1]', '[INTEREST 2]', '[INTEREST 3]'],
-  goals: ['[GOAL 1]', '[GOAL 2]'],
+  interests: ['Learning programming'],
+  goals: ['Build a stable income through a career in IT',
+  'Finish my OCR system project'],
 }
 
 // Only include skills you actually have. Icons are chosen by `icon` key
@@ -38,22 +37,27 @@ export const skills = [
   {
     category: 'Programming',
     icon: 'code',
-    items: ['[LANGUAGE 1]', '[LANGUAGE 2]'],
+    items: ['Python', 'JavaScript', 'PHP', 'C#'],
   },
   {
-    category: 'Frontend Development',
+    category: 'Frontend',
     icon: 'layout',
-    items: ['[SKILL 1]', '[SKILL 2]', '[SKILL 3]'],
+    items: ['Bootstrap'],
+  },
+  {
+    category: 'Backend & Databases',
+    icon: 'code',
+    items: ['Django', 'Firebase', 'SQLite', 'PostgreSQL'],
+  },
+  {
+    category: 'Mobile Development',
+    icon: 'sparkles',
+    items: ['Flutter', 'Android SDK'],
   },
   {
     category: 'Tools',
     icon: 'wrench',
-    items: ['[TOOL 1]', '[TOOL 2]'],
-  },
-  {
-    category: 'Other',
-    icon: 'sparkles',
-    items: ['[SKILL 1]', '[SKILL 2]'],
+    items: ['Git & GitHub', 'VS Code', 'Vercel'],
   },
 ]
 
@@ -61,36 +65,46 @@ export const skills = [
 // when you do not have them yet — the card will adapt automatically.
 // status: 'completed' | 'in-progress' (be honest — do not mark unfinished work complete)
 export const projects = [
+    {
+    title: 'Pinoy Games: Luksong Baka',
+    description:
+      'A browser version of the traditional Filipino "jump over the cow" game, with a username entry, instructions, a pause menu, a score and a leaderboard. Be warned: it has a lot of bugs, and it works best on desktop because the mobile layout is not responsive yet. We were still beginners when we made it.',
+    contribution:
+       'I built the game functions and logic, such as the controls, jumping, scoring and game flow. My teammates built the UI and the rest of the game.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    status: 'completed',
+    image: '/images/luksong-baka.jpg',
+    imageAlt: 'The Luksong Baka game',
+    live: 'https://edd112.github.io/PINOY-GAMES-LUKSONG-BAKA/',
+    source: 'https://github.com/EDD112/PINOY-GAMES-LUKSONG-BAKA'},
   {
-    title: '[PROJECT TITLE 1]',
-    description: '[One or two sentences on what the project does and who it is for.]',
-    contribution: '[What you personally built or were responsible for.]',
-    tech: ['[TECH 1]', '[TECH 2]'],
-    status: 'in-progress',
-    image: '', // e.g. '/images/project-1.png' (recommended 1200×750)
-    imageAlt: '',
-    live: '',
-    source: '',
+    title: 'StockManager: Inventory System',
+    description:
+      'A web-based inventory system for tracking products, categories and stock batches, with expiry tracking and alerts for low stock, out-of-stock and expiring items. Built for small stores and food businesses that need to know what is running out or about to expire. Demo login for the dashboard: username "manager", password "manager@123".',
+    contribution:
+      'I built most of the system myself, including the Django backend, the inventory logic and the alerts. My teammates helped with the UI and went to the store to propose the system and gather information.',
+    tech: ['Python', 'Django', 'PostgreSQL', 'Bootstrap', 'Chart.js'],
+    status: 'completed',
+    image: [
+      '/images/stoock-manager-login.png',
+      '/images/stoock-manager-dashboard.png',
+    ],
+    imageAlt: 'The StockManager dashboard',
+    live: 'https://stock-manager-git-main-edd-112.vercel.app/', 
+    source: 'https://github.com/EDD112/stock-manager',
   },
   {
-    title: '[PROJECT TITLE 2]',
-    description: '[One or two sentences on what the project does and who it is for.]',
-    contribution: '[What you personally built or were responsible for.]',
-    tech: ['[TECH 1]', '[TECH 2]'],
+    title: 'CEC Anomaly: Horror Survival Game',
+    description: 'A first-person horror survival game concept set inside Cebu Eastern College, where players must complete tasks, explore different floors, and free trapped spirits while avoiding a powerful demon. The game is planned to feature survival mechanics, hiding spots, interactive objects, and tools to stun enemies. The project is currently in progress, with me and my team still working on the game design, planning its mechanics, and organizing its core gameplay features before moving into full development.',
+    contribution: 'I am working with my team during the design and planning process, contributing ideas for the game mechanics, gameplay flow, and overall player experience. We are still refining the concept and organizing the features that will be implemented in the next stages of development.',
+    tech: ['Godot', 'GDScript'],
     status: 'in-progress',
-    image: '',
-    imageAlt: '',
-    live: '',
-    source: '',
-  },
-  {
-    title: '[PROJECT TITLE 3]',
-    description: '[One or two sentences on what the project does and who it is for.]',
-    contribution: '[What you personally built or were responsible for.]',
-    tech: ['[TECH 1]', '[TECH 2]'],
-    status: 'in-progress',
-    image: '',
-    imageAlt: '',
+    image: [
+    '/images/cec-anomaly.jpg',
+    '/images/cec-anomaly1.png',
+    '/images/cec-anomaly2.png',
+    ],
+    imageAlt: 'The CEC Anomaly Game',
     live: '',
     source: '',
   },

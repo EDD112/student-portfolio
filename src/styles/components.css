@@ -370,7 +370,22 @@
 
 .portrait__img {
   object-fit: cover;
+  object-position: top center;
+  border: 0;
   box-shadow: var(--shadow-lg);
+  background: linear-gradient(
+  165deg,
+  color-mix(in srgb, var(--accent) 16%, var(--bg)),
+  color-mix(in srgb, var(--accent) 3%, var(--bg))
+  );
+}
+.portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: var(--radius-lg);
+  pointer-events: none;
 }
 
 .portrait__placeholder {
@@ -458,11 +473,15 @@
 .projects__grid {
   display: grid;
   gap: var(--space-5);
+  align-items: start; /* closed cards keep their own short height */
 }
 
 .projects__grid > li {
   display: flex;
 }
+
+/* Equal heights for open cards are handled in Projects.jsx / ProjectCard.jsx,
+   so the extra space animates instead of snapping. */
 
 .project-card {
   display: flex;
@@ -706,4 +725,336 @@
   .skills__grid {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+/* ───────── Project card: note + early badge ───────── */
+.status--early {
+  color: var(--accent-text);
+  background: var(--accent-soft);
+}
+
+.project-card__note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.project-card__note svg {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  color: var(--accent-text);
+}
+
+/* ───────── Image gallery (swipe carousel) ───────── */
+.gallery {
+  position: absolute;
+  inset: 0;
+}
+
+.gallery__track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gallery__track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  overflow: hidden;
+}
+
+.gallery__slide img {
+  transition: transform 500ms var(--ease);
+}
+
+.gallery__slide:hover img {
+  transform: scale(1.04);
+}
+
+.gallery__zoom {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gallery__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  z-index: 2;
+  transition: transform var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+}
+
+.gallery__nav:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.gallery__nav--prev {
+  left: 8px;
+}
+
+.gallery__nav--next {
+  right: 8px;
+}
+
+.gallery__nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Phones swipe instead, so hide the arrows on touch screens */
+@media (hover: none) {
+  .gallery__nav {
+    display: none;
+  }
+}
+
+.gallery__dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2;
+}
+
+.gallery__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+
+.gallery__dot[aria-current='true'] {
+  background: #fff;
+  transform: scale(1.25);
+}
+
+/* ───────── Full-screen image viewer ───────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-7) var(--space-4);
+  background: rgba(10, 9, 14, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: lb-fade-in 260ms var(--ease) both;
+  touch-action: pan-y;
+}
+
+.lightbox.is-closing {
+  animation: lb-fade-out 220ms var(--ease) both;
+}
+
+.lightbox__drag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  user-select: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: lb-img-in 340ms var(--ease) both;
+}
+
+.lightbox.is-closing .lightbox__img {
+  animation: lb-img-out 220ms var(--ease) both;
+}
+
+.lightbox__img--from-right {
+  animation: lb-slide-right 320ms var(--ease) both;
+}
+
+.lightbox__img--from-left {
+  animation: lb-slide-left 320ms var(--ease) both;
+}
+
+.lightbox__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+
+.lightbox__btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.lightbox__close {
+  top: 16px;
+  right: 16px;
+}
+
+.lightbox__close:hover {
+  transform: rotate(90deg);
+}
+
+.lightbox__prev,
+.lightbox__next {
+  top: 50%;
+  margin-top: -22px;
+}
+
+.lightbox__prev {
+  left: 16px;
+}
+
+.lightbox__next {
+  right: 16px;
+}
+
+.lightbox__prev:hover {
+  transform: translateX(-2px);
+}
+
+.lightbox__next:hover {
+  transform: translateX(2px);
+}
+
+.lightbox__count {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@keyframes lb-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lb-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes lb-img-in {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes lb-img-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: scale(0.94); }
+}
+
+@keyframes lb-slide-right {
+  from { opacity: 0; transform: translateX(60px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes lb-slide-left {
+  from { opacity: 0; transform: translateX(-60px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ───────── See more / See less ───────── */
+.expandable__text {
+  line-height: 1.6;
+  max-height: 4.8em; /* 3 lines */
+  overflow: hidden;
+  transition: max-height 380ms var(--ease);
+}
+
+.expandable__text.is-clamped {
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+
+.expandable__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: var(--space-2);
+  padding: 0.25rem 0;
+  border: 0;
+  background: none;
+  color: var(--accent-text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.expandable__toggle:hover {
+  text-decoration: underline;
+}
+
+.expandable__toggle svg {
+  transition: transform var(--t-med) var(--ease);
+}
+
+.expandable__toggle svg.is-flipped {
+  transform: rotate(180deg);
 }

@@ -15,12 +15,16 @@ export default function Contact() {
             easiest way to reach me is by email.
           </p>
 
-          <a className="contact__email" href={`mailto:${profile.email}`}>
-            <Mail size={22} aria-hidden="true" />
-            <span>{profile.email}</span>
-          </a>
-
           <ul className="contact__links">
+            {profile.email && (
+              <li>
+                <a className="btn btn--secondary" href={`mailto:${profile.email}`}>
+                  <Mail size={18} aria-hidden="true" />
+                  Email
+                  <span className="sr-only"> me at {profile.email}</span>
+                </a>
+              </li>
+            )}
             {profile.github && (
               <li>
                 <a className="btn btn--secondary" href={profile.github} target="_blank" rel="noopener noreferrer">
