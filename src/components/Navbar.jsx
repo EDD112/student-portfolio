@@ -61,12 +61,15 @@ export default function Navbar({ active, theme, onToggleTheme }) {
           <button
             type="button"
             className="icon-btn navbar__menu-btn"
+            data-open={open}
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
             onClick={() => setOpen((o) => !o)}
           >
-            {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            {/* Both icons stay mounted and cross-fade/rotate, instead of swapping instantly */}
+            <Menu size={22} aria-hidden="true" className="menu-icon menu-icon--menu" />
+            <X size={22} aria-hidden="true" className="menu-icon menu-icon--close" />
           </button>
         </div>
       </div>
@@ -75,11 +78,10 @@ export default function Navbar({ active, theme, onToggleTheme }) {
         id="mobile-menu"
         aria-label="Mobile"
         className={`mobile-menu ${open ? 'is-open' : ''}`}
-        hidden={!open}
       >
         <ul className="container">
-          {navLinks.map((link) => (
-            <li key={link.id}>
+          {navLinks.map((link, i) => (
+            <li key={link.id} style={{ '--i': i }}>
               <a
                 href={`#${link.id}`}
                 className={`mobile-link ${active === link.id ? 'is-active' : ''}`}
